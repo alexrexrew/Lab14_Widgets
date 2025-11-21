@@ -19,9 +19,7 @@ import androidx.glance.layout.padding
 import androidx.glance.text.Text
 
 class SimpleWidgetContent : GlanceAppWidget() {
-
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-
         provideContent {
             GlanceTheme {
                 MyContent()
@@ -33,17 +31,25 @@ class SimpleWidgetContent : GlanceAppWidget() {
     private fun MyContent() {
         Column(
             modifier = GlanceModifier.fillMaxSize()
-                .background(GlanceTheme.colors.background),
+                .background(GlanceTheme.colors.background)
+                .padding(8.dp), // Reducido un poco el padding para que quepan los 2 botones
             verticalAlignment = Alignment.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "¿A donde quieres dirigirte?", modifier = GlanceModifier.padding(12.dp))
             Row(horizontalAlignment = Alignment.CenterHorizontally) {
+                // Primer botón: Inicia MainActivity (Página Principal)
                 Button(
                     text = "Página Principal",
                     onClick = actionStartActivity<MainActivity>()
                 )
 
+                // Segundo botón: **NUEVO** - Inicia DetailActivity (Vista Detalle)
+                Button(
+                    text = "Vista Detalle",
+                    onClick = actionStartActivity<DetailActivity>(),
+                    modifier = GlanceModifier.padding(start = 8.dp) // Añade un espacio entre botones
+                )
             }
         }
     }
